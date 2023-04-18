@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class Kolhoz extends Thread {
 
-	private static final int N_TRUCKS = 100_000;
+	private static final int N_TRUCKS = 10_000;
 	private static final int LOAD = 1;// тонна
 	private static final int N_RUNS = 1000;
 
@@ -50,3 +50,16 @@ public class Kolhoz extends Thread {
 
 	}
 }
+
+
+//задание
+//решение задачи поиска победителя с гонкой Средов
+//мы использовали общий какой-то объект (победителя - фотофиниш)
+//правильно использовать Атомик
+//есть нюанс
+
+
+
+
+
+//след задание - таблица результатов (мб когда 2 среда или больше имеют одно и то же время)
