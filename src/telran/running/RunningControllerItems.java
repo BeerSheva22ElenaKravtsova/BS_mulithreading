@@ -1,5 +1,7 @@
 package telran.running;
 
+import java.time.temporal.ChronoUnit;
+
 import telran.view.InputOutput;
 import telran.view.Item;
 import telran.view.Menu;
@@ -9,7 +11,12 @@ public class RunningControllerItems {
 	private static final int MAX_DISTANCE = 1000;
 	private static final int MIN_NUMBER_MEMBERS = 2;
 	private static final int MAX_NUMBER_MEMBERS = 10;
+	private static final int DISTANCE = 10;
+	private static final int DISTANCE1 = 2;
+	private String dist = " ".repeat(DISTANCE);
+	private String dist1 = " ".repeat(DISTANCE1);
 	private String wrongInput = "Wrong input";
+	int i = 1;
 
 	public Menu menu() {
 		Item start = Item.of("Start", io -> start(io));
@@ -29,6 +36,12 @@ public class RunningControllerItems {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		io.writeLine(String.format("The winner is runner number: %d", trace.winner));
+
+		io.writeLine(String.format("Place %s Thread Number %s Running Time", dist1, dist1));
+
+		trace.results.forEach(r -> {
+			io.writeLine(String.format("%s %s %s %s %s", i++, dist, r.number, dist,
+					ChronoUnit.MILLIS.between(trace.timeOfStart, r.timeOfFinish)));
+		});
 	}
 }

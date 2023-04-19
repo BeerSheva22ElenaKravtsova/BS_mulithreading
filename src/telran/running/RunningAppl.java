@@ -10,5 +10,4 @@ public class RunningAppl {
 		Item menu = runningController.menu();
 		menu.perform(new StandardInputOutput());
 	}
-
 }
