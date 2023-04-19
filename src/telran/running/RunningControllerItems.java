@@ -1,6 +1,9 @@
 package telran.running;
 
-import java.time.temporal.ChronoUnit;
+import java.time.Instant;
+//import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+//import java.util.List;
 
 import telran.view.InputOutput;
 import telran.view.Item;
@@ -10,11 +13,11 @@ public class RunningControllerItems {
 	private static final int MIN_DISTANCE = 100;
 	private static final int MAX_DISTANCE = 1000;
 	private static final int MIN_NUMBER_MEMBERS = 2;
-	private static final int MAX_NUMBER_MEMBERS = 10;
-	private static final int DISTANCE = 10;
-	private static final int DISTANCE1 = 2;
-	private String dist = " ".repeat(DISTANCE);
-	private String dist1 = " ".repeat(DISTANCE1);
+	private static final int MAX_NUMBER_MEMBERS = 2000;
+//	private static final int DISTANCE = 10;
+//	private static final int DISTANCE1 = 2;
+//	private String dist = " ".repeat(DISTANCE);
+//	private String dist1 = " ".repeat(DISTANCE1);
 	private String wrongInput = "Wrong input";
 	int i = 1;
 
@@ -37,11 +40,25 @@ public class RunningControllerItems {
 			e.printStackTrace();
 		}
 
-		io.writeLine(String.format("Place %s Thread Number %s Running Time", dist1, dist1));
+		ArrayList<Runner> table = trace.results;
+		Instant prev = table.get(0).timeOfFinish;
+		int size = table.size();
+		int count = 0;
+		for (int i = 1; i < size; i++) {
+			Instant current = table.get(i).timeOfFinish;
+			if (current.isBefore(prev)) {
+				count++;
+			}
+			prev = current;
+		}
 
-		trace.results.forEach(r -> {
-			io.writeLine(String.format("%s %s %s %s %s", i++, dist, r.number, dist,
-					ChronoUnit.MILLIS.between(trace.timeOfStart, r.timeOfFinish)));
-		});
+		io.writeLine(String.format("Count of results violations is %d", count));
+
+//		io.writeLine(String.format("Place %s Thread Number %s Running Time", dist1, dist1));
+
+//		trace.results.forEach(r -> {
+//			io.writeLine(String.format("%s %s %s %s %s", i++, dist, r.number, dist,
+//					ChronoUnit.MILLIS.between(trace.timeOfStart, r.timeOfFinish)));
+//		});
 	}
 }

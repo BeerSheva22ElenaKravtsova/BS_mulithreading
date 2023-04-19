@@ -2,8 +2,6 @@ package telran.running;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Random;
 
 public class Runner extends Thread {
@@ -12,9 +10,7 @@ public class Runner extends Thread {
 	private static Random random = new Random();
 	int number;
 	int distance;
-//	ArrayList<Runner> results = new ArrayList<>();
-	Collection<Runner> results = Collections.synchronizedCollection(new ArrayList<Runner>());
-
+	ArrayList<Runner> results;
 	Instant timeOfFinish = null;
 
 	public Runner(int number, int distance, ArrayList<Runner> results) {
@@ -32,17 +28,13 @@ public class Runner extends Thread {
 				throw new RuntimeException(e.getMessage());
 			}
 		}
-		timeOfFinish = Instant.now();
-		addToRes(this);
+		synchronized (results) {
+			timeOfFinish = Instant.now();
+			results.add(this);
+		}
 	}
 
 	private long getSleepTime() {
 		return random.nextLong(MIN_SLEEP_TIME, MAX_SLEEP_TIME);
 	}
-	
-	synchronized private void addToRes(Runner r) {
-		results.add(r);
-	}
 }
-
-
