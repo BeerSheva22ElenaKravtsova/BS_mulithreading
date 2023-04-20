@@ -52,7 +52,7 @@ public class RunningControllerItems {
 			prev = current;
 		}
 
-		io.writeLine(String.format("Count of results violations is %d", count));
+		io.writeLine(String.format("Number of threads is %d, Count of results violations is %d", size, count));
 
 //		io.writeLine(String.format("Place %s Thread Number %s Running Time", dist1, dist1));
 

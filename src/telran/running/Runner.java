@@ -1,7 +1,6 @@
 package telran.running;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Runner extends Thread {
@@ -10,13 +9,13 @@ public class Runner extends Thread {
 	private static Random random = new Random();
 	int number;
 	int distance;
-	ArrayList<Runner> results;
+	private Trace trace;
 	Instant timeOfFinish = null;
 
-	public Runner(int number, int distance, ArrayList<Runner> results) {
+	public Runner(int number, int distance, Trace trace) {
 		this.number = number;
 		this.distance = distance;
-		this.results = results;
+		this.trace = trace;
 	}
 
 	@Override
@@ -28,9 +27,13 @@ public class Runner extends Thread {
 				throw new RuntimeException(e.getMessage());
 			}
 		}
-		synchronized (results) {
+		trace.lock.lock();// Thread захватил
+		try {
 			timeOfFinish = Instant.now();
-			results.add(this);
+			trace.results.add(this);
+		} finally {// нужно чтобы в любом случае была разблокировка (в блоке try в каких-то случаях
+					// мб исключения)
+			trace.lock.unlock();// Thread освободил
 		}
 	}
 
