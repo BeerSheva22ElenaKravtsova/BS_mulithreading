@@ -11,21 +11,26 @@ public class X extends Thread {
 			}
 		}
 	}
-	
+
 	private void m2() {
 		synchronized (res2) {
 			synchronized (res1) {
 			}
 		}
 	}
-	
+
 	private void m3() {
-		synchronized (res2) {
-			synchronized (res1) {
-			}
+		synchronized (res3) {
 		}
 	}
 
+	@Override
+	public void run() {
+		for (int i = 0; i < 10_000; i++) {
+			m1();
+			m2();
+			m3();
+		}
+	}
 }
 
-//company это Мап с которой могут работать много клиентов

@@ -9,10 +9,10 @@ public class Deadlock {
 	static Integer tableNumber = 5;
 
 	public static void main(String[] args) {
-		DeadlockObj men = new DeadlockObj(menName, womanName, timeOfResev, tableNumber);
-		DeadlockObjSecond woman = new DeadlockObjSecond(womanName, menName, timeOfResev, tableNumber);
-		men.start();
-		woman.start();
+		X x1 = new X();
+		X x2  = new X();
+		x1.start();
+		x2.start();
 		
 
 	}

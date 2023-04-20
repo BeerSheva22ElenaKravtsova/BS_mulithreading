@@ -2,13 +2,13 @@ package telran.multithreading;
 
 import java.time.LocalTime;
 
-public class DeadlockObjSecond extends Thread {
+public class DeadlockObjSecond__BookRestaurant extends Thread {
 	String name;
 	String friendname;
 	LocalTime timeOfResev;
 	Integer tableNumber;
 
-	public DeadlockObjSecond(String name, String friendname, LocalTime dinnerTime, Integer tableNumber) {
+	public DeadlockObjSecond__BookRestaurant(String name, String friendname, LocalTime dinnerTime, Integer tableNumber) {
 		this.name = name;
 		this.timeOfResev = dinnerTime;
 		this.friendname = friendname;
