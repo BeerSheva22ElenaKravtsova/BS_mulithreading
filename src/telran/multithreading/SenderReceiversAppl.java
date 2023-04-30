@@ -2,6 +2,8 @@ package telran.multithreading;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import telran.multithreading.consumers.ReceiverEvenOdd;
 import telran.multithreading.producers.Sender;
@@ -12,7 +14,7 @@ public class SenderReceiversAppl {
 	private static final int N_RECEIVERS = 10;
 
 	public static void main(String[] args) throws InterruptedException {
-		MessageBox messageBox = new MessageBox();
+		BlockingQueue<String> messageBox = new LinkedBlockingQueue<>(1);//1 сообщение принимает, 1 печатает
 		Sender sender = new Sender(messageBox, N_MESSAGES);
 		sender.start();
 		List<ReceiverEvenOdd> receivers = new ArrayList<>();
